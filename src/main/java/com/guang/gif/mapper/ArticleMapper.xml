@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guang.gif.mapper.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.guang.gif.pojo.Article" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="c_date" property="cDate" jdbcType="TIMESTAMP" />
+    <result column="comment_num" property="commentNum" jdbcType="BIGINT" />
+    <result column="grelease" property="grelease" jdbcType="BIT" />
+    <result column="pic_path" property="picPath" jdbcType="VARCHAR" />
+    <result column="head_path" property="headPath" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="love_num" property="loveNum" jdbcType="BIGINT" />
+    <result column="show_num" property="showNum" jdbcType="BIGINT" />
+    <result column="tag_id" property="tagId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, c_date, comment_num, grelease, pic_path, head_path, keywords, love_num, show_num, 
+    tag_id, title
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guang.gif.pojo.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit ${limitIndex},${limitNum}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guang.gif.pojo.ArticleExample" >
+    delete from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guang.gif.pojo.Article" >
+    insert into article (id, c_date, comment_num, 
+      grelease, pic_path, head_path, 
+      keywords, love_num, show_num, 
+      tag_id, title)
+    values (#{id,jdbcType=BIGINT}, #{cDate,jdbcType=TIMESTAMP}, #{commentNum,jdbcType=BIGINT}, 
+      #{grelease,jdbcType=BIT}, #{picPath,jdbcType=VARCHAR}, #{headPath,jdbcType=VARCHAR}, 
+      #{keywords,jdbcType=VARCHAR}, #{loveNum,jdbcType=BIGINT}, #{showNum,jdbcType=BIGINT}, 
+      #{tagId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guang.gif.pojo.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cDate != null" >
+        c_date,
+      </if>
+      <if test="commentNum != null" >
+        comment_num,
+      </if>
+      <if test="grelease != null" >
+        grelease,
+      </if>
+      <if test="picPath != null" >
+        pic_path,
+      </if>
+      <if test="headPath != null" >
+        head_path,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="loveNum != null" >
+        love_num,
+      </if>
+      <if test="showNum != null" >
+        show_num,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cDate != null" >
+        #{cDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentNum != null" >
+        #{commentNum,jdbcType=BIGINT},
+      </if>
+      <if test="grelease != null" >
+        #{grelease,jdbcType=BIT},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="headPath != null" >
+        #{headPath,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="loveNum != null" >
+        #{loveNum,jdbcType=BIGINT},
+      </if>
+      <if test="showNum != null" >
+        #{showNum,jdbcType=BIGINT},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guang.gif.pojo.ArticleExample" resultType="java.lang.Integer" >
+    select count(*) from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update article
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.cDate != null" >
+        c_date = #{record.cDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.commentNum != null" >
+        comment_num = #{record.commentNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.grelease != null" >
+        grelease = #{record.grelease,jdbcType=BIT},
+      </if>
+      <if test="record.picPath != null" >
+        pic_path = #{record.picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headPath != null" >
+        head_path = #{record.headPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywords != null" >
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loveNum != null" >
+        love_num = #{record.loveNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.showNum != null" >
+        show_num = #{record.showNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.tagId != null" >
+        tag_id = #{record.tagId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update article
+    set id = #{record.id,jdbcType=BIGINT},
+      c_date = #{record.cDate,jdbcType=TIMESTAMP},
+      comment_num = #{record.commentNum,jdbcType=BIGINT},
+      grelease = #{record.grelease,jdbcType=BIT},
+      pic_path = #{record.picPath,jdbcType=VARCHAR},
+      head_path = #{record.headPath,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      love_num = #{record.loveNum,jdbcType=BIGINT},
+      show_num = #{record.showNum,jdbcType=BIGINT},
+      tag_id = #{record.tagId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guang.gif.pojo.Article" >
+    update article
+    <set >
+      <if test="cDate != null" >
+        c_date = #{cDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentNum != null" >
+        comment_num = #{commentNum,jdbcType=BIGINT},
+      </if>
+      <if test="grelease != null" >
+        grelease = #{grelease,jdbcType=BIT},
+      </if>
+      <if test="picPath != null" >
+        pic_path = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="headPath != null" >
+        head_path = #{headPath,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="loveNum != null" >
+        love_num = #{loveNum,jdbcType=BIGINT},
+      </if>
+      <if test="showNum != null" >
+        show_num = #{showNum,jdbcType=BIGINT},
+      </if>
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guang.gif.pojo.Article" >
+    update article
+    set c_date = #{cDate,jdbcType=TIMESTAMP},
+      comment_num = #{commentNum,jdbcType=BIGINT},
+      grelease = #{grelease,jdbcType=BIT},
+      pic_path = #{picPath,jdbcType=VARCHAR},
+      head_path = #{headPath,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      love_num = #{loveNum,jdbcType=BIGINT},
+      show_num = #{showNum,jdbcType=BIGINT},
+      tag_id = #{tagId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,6 @@
+<selectKey keyProperty="id" resultType="Long" order="AFTER">
+	select LAST_INSERT_ID()
+</selectKey>
+
+
+<!-- limit ${limitIndex},${limitNum} -->
