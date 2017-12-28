@@ -189,7 +189,8 @@ public class GAutoTool {
 				time = time.substring(time.indexOf("-")-4, time.length());
 			}
 			
-			long now = System.currentTimeMillis()+3*24*60*60*1000;
+			
+			long now = System.currentTimeMillis()+5*24*60*60*1000;
 
 			String ext = FilenameUtils.getExtension(picurl);
 			DateFormat formatDir = new SimpleDateFormat("yyyy-MM-dd");
@@ -247,8 +248,9 @@ public class GAutoTool {
 			
 			Date d = formatDir.parse(time);
 			System.out.println(url +"   "+tag + "    "+time);
-			if(next != null && !"".equals(next) && new Date().getTime()-d.getTime()<5*365*24*60*60*1000l)
+			if(next != null && !"".equals(next) && new Date().getTime()-d.getTime()<4*365*24*60*60*1000l)
 			{
+				Thread.sleep(100);
 				System.out.println(next);
 				autoGaoXiaoGif(next);
 			}
@@ -383,27 +385,4 @@ public class GAutoTool {
 		}
 	}
 	
-	static class TouTiaoElement
-	{
-		private String con;
-		private boolean pic;
-		public TouTiaoElement(boolean pic,String con)
-		{
-			this.pic = pic;
-			this.con = con;
-		}
-		public String getCon() {
-			return con;
-		}
-		public void setCon(String con) {
-			this.con = con;
-		}
-		public boolean isPic() {
-			return pic;
-		}
-		public void setPic(boolean pic) {
-			this.pic = pic;
-		}
-		
-	}
 }
