@@ -202,7 +202,7 @@
     	  $(".imgload").ImgLoading({
 	    		  errorimg: "${pageContext.request.contextPath }/img/loading.gif",
 	    		  loadimg: "${pageContext.request.contextPath }/img/loading.gif",
-              timeout: 100
+              timeout: 30
               });
       });
   </script>
